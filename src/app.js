@@ -42,24 +42,31 @@ function render() {
 function refresh() {
   setInterval(render, 10000)
 }
+function redimension() {
+  document.getElementById('width').addEventListener("change", function (event) {
+    const fontSize = Number(window.getComputedStyle(document.querySelector(".bottom-right")).fontSize.replace("px", ""))
+    let result = Math.floor(fontSize * (Number(event.target.value) / width))
+    console.log(result)
+    document.querySelector(".top-left").style.fontSize = result + "px"
+    document.querySelector(".bottom-right").style.fontSize = result + "px"
+    document.querySelector(".card").style.width = event.target.value + "px"
+  })
+  document.getElementById('height').addEventListener("change", function (event) {
+    const fontSize = Number(window.getComputedStyle(document.querySelector(".card-value")).fontSize.replace("px", ""))
+    let result = Math.floor(fontSize * (Number(event.target.value) / height))
+    document.querySelector(".card-value").style.fontSize = result + "px"
+    document.querySelector(".card").style.height = event.target.value + "px"
+  })
+}
 
 window.onload = function () {
   //write your code here
   render()
+  redimension()
   document.getElementById("reloadBtn").addEventListener("click", render);
   refresh()
 
-  document.getElementById('width').addEventListener("change", function (event) {
-    let result = 50 * (Number(event.target.value) / width)
-    document.querySelector(".top-left").style.fontSize += (result / 2) + "px"
-    document.querySelector(".bottom-right").style.fontSize += (result / 2) + "px"
-    document.querySelector(".card").style.width = event.target.value + "px"
-  })
-  document.getElementById('height').addEventListener("change", function (event) {
-    let result = 100 * (Number(event.target.value) / height)
-    document.querySelector(".card-value").style.fontSize += (result / 2) + "px"
-    document.querySelector(".card").style.height = event.target.value + "px"
-  })
+
 
 
 };
